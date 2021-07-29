@@ -16,7 +16,7 @@ class create_organ(LoginRequiredMixin,CreateView):
     success_url = reverse_lazy("homepage")
 
     def form_valid(self, form):
-        form.instance.expert_creator = self.request.user
+        form.instance.user_creator = self.request.user
         return super().form_valid(form)
 
     def form_invalid(self, form):

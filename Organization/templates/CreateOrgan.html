@@ -6,5 +6,57 @@
 {% endblock %}
 
 {% block content %}
+    <div class="text-center">
+        <h2>ایجاد سازمان جدید</h2>
+    </div>
+    <form method="post">
+        {{ csrf_token }}
+        <div class="form-group">
+            <label for="state">استان</label>
+            <select class="form-control" id="state">
+                {% for item in form.fields.state.queryset %}
+                    <option value="{{ forloop.counter }}">{{ item }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="name">نام سازمان</label>
+            <input type="text" class="form-control" id="name" placeholder="نام سازمان">
+        </div>
+        <div class="form-group">
+            <label for="phone">تلفن</label>
+            <input type="text" class="form-control" maxlength="11" id="phone" placeholder="تلفن">
+        </div>
+        <div class="form-group">
+            <label for="workers_qty">تعداد کارگران</label>
+            <input type="number" min="0" class="form-control" id="workers_qty">
+        </div>
+        <div class="form-group">
+            <label for="organ_product" class="form-label">محصولات تولیدی</label>
+            <select id='organ_product' name='organ_product' class="custom-select" multiple>
+                {% for item in form.fields.organ_product.queryset %}
+                    {% if item %}
+                        <option value="{{ forloop.counter }}">{{ item }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="full_name_owner">نام و نام خانوادگی مخاطب</label>
+            <input type="text" class="form-control" id="full_name_owner"
+                   placeholder="نام و نام خانوادگی مخاطب">
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="phone_owner">تلفن مخاطب</label>
+                <input type="text" class="form-control" maxlength="11" id="phone_owner" placeholder="تلفن مخاطب">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="email_owner">ایمیل مخاطب</label>
+                <input type="email" class="form-control" id="email_owner" placeholder="ایمیل مخاطب">
+            </div>
+        </div>
 
+        <button type="submit" class="btn btn-primary">ذخیره</button>
+    </form>
 {% endblock %}
