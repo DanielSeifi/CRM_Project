@@ -17,6 +17,7 @@ class create_organ(LoginRequiredMixin,CreateView):
 
     def form_valid(self, form):
         form.instance.user_creator = self.request.user
+        form.save()
         return super().form_valid(form)
 
     def form_invalid(self, form):
