@@ -1,0 +1,68 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block title %}
+    Create Product
+{% endblock %}
+
+{% block content %}
+    <div class="text-center">
+        <h2>ایجاد محصول جدید</h2>
+    </div>
+    <form method="post">
+        {% csrf_token %}
+        <div class="row">
+            <div class="form-group col-md-4">
+                <label for="product_name">نام محصول</label>
+                <input type="text" class="form-control" id="product_name" name="product_name" placeholder="نام محصول">
+            </div>
+            <div class="form-group col-md-4">
+                <label for="price">قیمت</label>
+                <input type="number" min="0" class="form-control" id="price" name="price">
+            </div>
+            <div class="form-group col-md-4">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="is_tax" name="is_tax">
+                    <label class="form-check-label" for="is_tax">
+                        آیا مشمول مالیات است؟
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="custom-file">
+                <label for="pdf_file">فایل کاتولوگ</label>
+                <input type="file" accept="application/pdf" class="form-control-file" id="pdf_file" name="pdf_file"
+                       required>
+                <div class="invalid-feedback">فایل را به درستی وارد کنید</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="custom-file">
+                <label for="image_file">تصویر محصول</label>
+                <input type="file" accept="image/*" class="form-control-file" id="image_file"
+                       name="image_file" required>
+                <div class="invalid-feedback">فایل را به درستی وارد کنید</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="mb-3">
+                <label for="feature">ویژگی های محصول</label>
+                <textarea class="form-control" id="feature" name="feature"
+                          placeholder="Required example textarea"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="company_rel_organ" class="form-label">قابل استفاده برای تولید محصولات تولیدی</label>
+            <select id='company_rel_organ' name='company_rel_organ' class="custom-select" multiple>
+                {% for item in form.fields.company_rel_organ.queryset %}
+                    {% if item %}
+                        <option value="{{ forloop.counter }}">{{ item }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">ذخیره</button>
+    </form>
+{% endblock %}
