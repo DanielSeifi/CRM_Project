@@ -9,4 +9,42 @@
     <div class="text-center">
         <h2>لیست محصولات</h2>
     </div>
+    <div class='text-white mt-lg-5' style="margin-left: 15%; margin-right: 15%;">
+        <table class='table table-dark'>
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>نام محصول</th>
+                <th>قیمت</th>
+                <th>مشمول مالیات</th>
+                <th>دانلود کاتولوگ</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            {% for produce in page_obj %}
+                <tr>
+                    <th>{{ forloop.counter }}</th>
+                    <th>{{ product.product_name }}</th>
+                    <th>{{ product.price }}</th>
+                    <th>
+                        {{ product.is_tax }}
+                    </th>
+                    <th>
+                        {% if product.pdf_file %}
+                            <button class='btn btn-success'>
+                                <a href="{{ product.pdf_file.url }}"
+                                   style='text-decoration: none; color: white;'>دانلود</a>
+                            </button>
+                        {% else %}
+                            -
+                        {% endif %}
+                    </th>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    {% include 'base/Pagination.html' %}
 {% endblock %}
