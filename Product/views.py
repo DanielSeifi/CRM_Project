@@ -7,7 +7,7 @@ from .forms import ProductForm
 from .models import Product
 
 # Create your views here.
-from django.views.generic import CreateView
+from django.views.generic import CreateView, ListView
 
 
 class CreateProduct(LoginRequiredMixin, CreateView):
@@ -24,3 +24,8 @@ class CreateProduct(LoginRequiredMixin, CreateView):
     def form_invalid(self, form):
         messages.info(self.request, form.errors)
         return super().form_invalid(form)
+
+class ProductList(LoginRequiredMixin,ListView):
+    model = Product
+    template_name = 'ProductList.html'
+    paginate_by = 4

@@ -15,3 +15,10 @@ class OrganForm(forms.ModelForm):
             'phone_owner',
             'email_owner',
         ]
+
+class OrganProductForm(forms.ModelForm):
+    class Meta:
+        model = models.OrganizationProduct
+        fields = [
+            'name',
+        ]
