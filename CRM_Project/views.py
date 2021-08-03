@@ -5,3 +5,6 @@ from django.shortcuts import render
 
 def homepage(request):
     return render(request, 'home.html', {})
+
+# def loginpage(request):
+#     return render(request,'login_page.html',{})

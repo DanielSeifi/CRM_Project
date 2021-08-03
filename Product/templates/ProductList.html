@@ -22,26 +22,31 @@
             </thead>
 
             <tbody>
-            {% for produce in page_obj %}
-                <tr>
-                    <th>{{ forloop.counter }}</th>
-                    <th>{{ product.product_name }}</th>
-                    <th>{{ product.price }}</th>
-                    <th>
-                        {{ product.is_tax }}
-                    </th>
-                    <th>
-                        {% if product.pdf_file %}
-                            <button class='btn btn-success'>
-                                <a href="{{ product.pdf_file.url }}"
-                                   style='text-decoration: none; color: white;'>دانلود</a>
-                            </button>
-                        {% else %}
-                            -
-                        {% endif %}
-                    </th>
-                </tr>
-            {% endfor %}
+                {% for product in object_list %}
+                    <tr>
+                        <th>{{forloop.counter}}</th>
+                        <th>
+                            <a href="#" style='text-decoration: none; color:white;'>{{product.product_name}}</a>
+                        </th>
+                        <th>{{product.price}}</th>
+                        <th>
+                            {% if product.is_tax %}
+                                بله
+                            {% else %}
+                                خیر
+                            {% endif %}
+                        </th>
+                        <th>
+                            {% if product.pdf_file %}
+                                <button class='btn btn-success'>
+                                    <a href="{{product.pdf_file.url}}" style='text-decoration: none; color: white;'>دانلود</a>
+                                </button>
+                            {% else %}
+                                -
+                            {% endif %}
+                        </th>
+                    </tr>
+                {% endfor %}
             </tbody>
         </table>
     </div>

@@ -1,8 +1,8 @@
 from django.urls import path
-from .views import create_organ,create_organ_product
+from .views import create_organ,organs_list
 
-namespace='Organization'
+app_name='Organization'
 urlpatterns = [
     path('',create_organ.as_view(),name="CreateOrgan"),
-    path('organ_product/',create_organ_product.as_view(),name="CreateOrganProduct"),
+    path('organslist/',organs_list.as_view(),name="OrgansList"),
 ]

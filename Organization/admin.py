@@ -42,12 +42,3 @@ class OrganizationAdmin(admin.ModelAdmin):
     list_per_page = 5
 
     search_fields = ['name', ]
-
-    # list_editable = [
-    #     'phone',
-    #     'workers_qty',
-    #     'full_name_owner',
-    #     'phone_owner',
-    #     'email_owner',
-    #     'user_creator',
-    # ]
