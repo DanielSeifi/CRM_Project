@@ -3,6 +3,7 @@ from django.core.validators import RegexValidator
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django_jalali.db import models as jdate
+from Product.models import Product
 
 phone_regex = RegexValidator(
     regex='^(\+98|0)?\d{1,2}\d{1,8}$',
@@ -22,6 +23,11 @@ class OrganizationProduct(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_products_sug(self):
+        print([product.name for product in Product.company_rel_organ.all()])
+        return [product.name for product in Product.company_rel_organ.all()]
+
 
 
 class State(models.Model):
@@ -59,10 +65,10 @@ class Organization(models.Model):
         return [product.name for product in self.organ_product.all()]
 
     def get_sug_products_name(self):
-        products = set()
-        for product in self.organ_product.all():
-            products |= set(product.get_products_sug())
-        return list(products)
+        products = list()
+        for product in self.organ_product:
+            products += list(product.get_products_sug())
+        return products
 
 
 class FollowUp(models.Model):
