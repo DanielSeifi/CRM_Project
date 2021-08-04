@@ -10,8 +10,8 @@ from Product.models import Product
 
 
 class Quote(models.Model):
-    creator = models.ForeignKey(get_user_model(), on_delete=models.PROTECT, verbose_name=_('کاربر ثبت کننده'))
-    organization = models.ForeignKey(Organization, on_delete=models.PROTECT, verbose_name=_('سازمان'))
+    user_creator = models.ForeignKey(get_user_model(), on_delete=models.PROTECT, verbose_name=_('کاربر ثبت کننده'))
+    organ = models.ForeignKey(Organization, on_delete=models.PROTECT, verbose_name=_('سازمان'))
     created_at = jdate.jDateTimeField(auto_now_add=True, verbose_name=_('تاریخ ثبت'))
     tax = 9
 
@@ -20,7 +20,7 @@ class Quote(models.Model):
         verbose_name_plural = _('پیش فاکتور ها')
 
     def __str__(self):
-        return f'{self.organization}'
+        return f'{self.organ}'
 
     def get_total_quantity(self):
         return self.quoteitem_set.all().aggregate(Sum('quantity')).get('quantity__sum', 0)
