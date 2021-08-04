@@ -30,6 +30,7 @@ urlpatterns = [
     path('', homepage, name="homepage"),
     path('Organization/', include('Organization.urls')),
     path('Product/', include('Product.urls')),
+    path('Quote/', include('Quote.urls')),
 ]
 
 if settings.DEBUG:
