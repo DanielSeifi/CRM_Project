@@ -23,5 +23,3 @@ class Product(models.Model):
     def __str__(self):
         return self.product_name
 
-    def get_products_sug(self):
-        return [product.name for product in self.company_rel_organ.all()]

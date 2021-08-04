@@ -20,9 +20,9 @@
         <br>
         ثبت توسط : {{ object.user_creator }}
         <br>
-        محصولات تولیدی : {% for product in object.get_organ_products_name %} ,{{ product }}{% endfor %}
+        محصولات تولیدی : {% for product in object.get_organ_product %} ,{{ product }}{% endfor %}
         <br>
-        Suggested Product : {% for product in object.get_sug_products_name %} ,
+        Suggested Product : {% for product in object.get_sug_product %} ,
         {{ product }} {% endfor %}
     </div>
 {% endblock %}

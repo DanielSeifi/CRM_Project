@@ -24,9 +24,8 @@ class OrganizationProduct(models.Model):
     def __str__(self):
         return self.name
 
-    def get_products_sug(self):
-        print([product.name for product in Product.company_rel_organ.all()])
-        return [product.name for product in Product.company_rel_organ.all()]
+    def get_sug_product(self):
+        return [product for product in self.product_set.all()]
 
 
 
@@ -61,14 +60,16 @@ class Organization(models.Model):
     def __str__(self):
         return self.name
 
-    def get_organ_products_name(self):
+    def get_organ_product(self):
         return [product.name for product in self.organ_product.all()]
 
-    def get_sug_products_name(self):
-        products = list()
-        for product in self.organ_product:
-            products += list(product.get_products_sug())
-        return products
+    def get_sug_product(self):
+        p = list()
+        for product in self.organ_product.all():
+            for l in product.get_sug_product():
+                p.append(l.product_name)
+        p = set(p)
+        return list(p)
 
 
 class FollowUp(models.Model):
