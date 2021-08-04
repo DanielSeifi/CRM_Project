@@ -5,5 +5,5 @@ app_name='Organization'
 urlpatterns = [
     path('',create_organ.as_view(),name="CreateOrgan"),
     path('organslist/',organs_list.as_view(),name="OrgansList"),
-    path('createfollowup/<int:pk>',create_follow_up.as_view(),name="CreateFollowUp"),
+    # path('createfollowup/<int:pk>',create_follow_up.as_view(),name="CreateFollowUp"),
 ]
