@@ -16,5 +16,9 @@ class Product(models.Model):
     company_rel_organ = models.ManyToManyField('Organization.OrganizationProduct',
                                                verbose_name=_('قابل استفاده برای تولید محصولات تولیدی'), )
 
+    class Meta():
+        verbose_name = _("محصول")
+        verbose_name_plural = _("محصولات")
+
     def __str__(self):
         return self.product_name

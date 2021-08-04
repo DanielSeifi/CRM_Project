@@ -1,0 +1,45 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block title %}
+    Create Product
+{% endblock %}
+
+{% block content %}
+    <div class="text-center">
+        <h2>لیست سازمان ها</h2>
+    </div>
+    <div class='text-white mt-lg-5' style="margin-left: 15%; margin-right: 15%;">
+        <table class='table table-dark'>
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>نام سازمان</th>
+                <th>ثبت کننده</th>
+                <th>مخاطب</th>
+                <th>عملیات</th>
+            </tr>
+            </thead>
+
+            <tbody>
+                {% for organ in object_list %}
+                    <tr>
+                        <th>{{forloop.counter}}</th>
+                        <th>
+                            <a href="#" style='text-decoration: none; color:white;'>{{organ.name}}</a>
+                        </th>
+                        <th>{{organ.user_creator}}</th>
+                        <th>
+                            {{ organ.full_name_owner }}
+                        </th>
+                        <th>
+                            <a href="#">ثبت پیگیری</a>
+                        </th>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    {% include 'base/Pagination.html' %}
+{% endblock %}
