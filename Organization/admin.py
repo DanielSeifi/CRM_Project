@@ -41,4 +41,21 @@ class OrganizationAdmin(admin.ModelAdmin):
 
     list_per_page = 5
 
-    search_fields = ['name', ]
+    search_fields = ['name__icontains', ]
+
+
+    @admin.register(models.FollowUp)
+    class FollowUpAdmin(admin.ModelAdmin):
+        list_display = (
+            'pk',
+            'user_creator',
+            'organization',
+            'created_at',
+        )
+        search_fields = (
+            'organization__icontains',
+        )
+        list_filter = (
+            'user_creator',
+            'created_at',
+        )

@@ -28,3 +28,22 @@ class organs_list(LoginRequiredMixin, ListView):
     model = models.Organization
     template_name = 'OrganList.html'
     paginate_by = 4
+    
+class create_follow_up(LoginRequiredMixin, CreateView):
+    model = models.FollowUp
+    template_name = 'CreateFollowUp.html'
+    form_class = forms.FollowUpForm
+    success_url = reverse_lazy("Organization:OrgansList")
+
+    def get_context_data(self, **kwargs):
+        p = kwargs['pk']
+        print(p)
+
+    def form_valid(self, form):
+        form.instance.user_creator = self.request.user
+        form.save()
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        messages.info(self.request, form.errors)
+        return super().form_invalid(form)

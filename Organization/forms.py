@@ -16,9 +16,18 @@ class OrganForm(forms.ModelForm):
             'email_owner',
         ]
 
+
 class OrganProductForm(forms.ModelForm):
     class Meta:
         model = models.OrganizationProduct
         fields = [
             'name',
+        ]
+
+
+class FollowUpForm(forms.ModelForm):
+    class Meta:
+        model = models.FollowUp
+        fields = [
+            'description',
         ]
