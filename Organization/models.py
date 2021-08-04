@@ -63,6 +63,5 @@ class FollowUp(models.Model):
     created_at = jdate.jDateTimeField(auto_now_add=True, verbose_name=_('تاریخ ثبت'))
 
     class Meta():
-        unique_together = ['organization',]
         verbose_name = _("پیگیری")
         verbose_name_plural = _("پیگیری ها")
