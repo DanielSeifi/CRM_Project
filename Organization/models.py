@@ -55,6 +55,15 @@ class Organization(models.Model):
     def __str__(self):
         return self.name
 
+    def get_organ_products_name(self):
+        return [product.name for product in self.organ_product.all()]
+
+    def get_sug_products_name(self):
+        products = set()
+        for product in self.organ_product.all():
+            products |= set(product.get_products_sug())
+        return list(products)
+
 
 class FollowUp(models.Model):
     description = models.TextField(verbose_name=_('گزارش کار'))

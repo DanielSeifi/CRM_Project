@@ -22,21 +22,22 @@
             </thead>
 
             <tbody>
-                {% for organ in object_list %}
-                    <tr>
-                        <th>{{forloop.counter}}</th>
-                        <th>
-                            <a href="#" style='text-decoration: none; color:white;'>{{organ.name}}</a>
-                        </th>
-                        <th>{{organ.user_creator}}</th>
-                        <th>
-                            {{ organ.full_name_owner }}
-                        </th>
-                        <th>
-                            <a href="#">ثبت پیگیری</a>
-                        </th>
-                    </tr>
-                {% endfor %}
+            {% for organ in object_list %}
+                <tr>
+                    <th>{{ forloop.counter }}</th>
+                    <th>
+                        <a href="{% url 'Organization:OrganDetail' organ.pk %}"
+                           style='text-decoration: none; color:white;'>{{ organ.name }}</a>
+                    </th>
+                    <th>{{ organ.user_creator }}</th>
+                    <th>
+                        {{ organ.full_name_owner }}
+                    </th>
+                    <th>
+                        <a href="#">ثبت پیگیری</a>
+                    </th>
+                </tr>
+            {% endfor %}
             </tbody>
         </table>
     </div>

@@ -5,7 +5,7 @@ from django.urls import reverse_lazy
 from . import models, forms
 
 # Create your views here.
-from django.views.generic import CreateView, ListView
+from django.views.generic import CreateView, ListView, DetailView
 
 
 class create_organ(LoginRequiredMixin, CreateView):
@@ -28,6 +28,16 @@ class organs_list(LoginRequiredMixin, ListView):
     model = models.Organization
     template_name = 'OrganList.html'
     paginate_by = 4
-    
+
+
+class organ_detail(LoginRequiredMixin, DetailView):
+    model = models.Organization
+    template_name = 'OrganDetail.html'
+
+    def get_queryset(self):
+        organization = models.Organization.objects.filter(pk=self.kwargs['pk'], user_creator=self.request.user)
+        return organization
+
+
 class create_follow_up(LoginRequiredMixin, CreateView):
     pass

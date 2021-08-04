@@ -1,0 +1,28 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block title %}
+    Organization Detail
+{% endblock %}
+
+{% block content %}
+    <div class="text-center">
+        <h2>{{ object.name }}</h2>
+    </div>
+    <div class="card-body">
+        استان : {{ object.state }}
+        <br>
+        تلفن : {{ object.phone }}
+        <br>
+        تاریخ ثبت : {{ object.created_at }}
+        <br>
+        تعداد کارگر : {{ object.workers_qty }}
+        <br>
+        ثبت توسط : {{ object.user_creator }}
+        <br>
+        Product : {% for product in object.get_organ_products_name %} ,{{ product }}{% endfor %}
+{#        <br>#}
+{#        Suggested Product : {% for product in object.get_suggestion_products %} ,#}
+{#        {{ product }} {% endfor %}#}
+    </div>
+{% endblock %}
