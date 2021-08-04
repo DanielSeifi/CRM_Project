@@ -25,4 +25,6 @@ class create_organ(LoginRequiredMixin, CreateView):
 
 
 class organs_list(LoginRequiredMixin, ListView):
-    pass
+    model = models.Organization
+    template_name = 'OrganList.html'
+    paginate_by = 4
