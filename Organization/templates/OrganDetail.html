@@ -14,16 +14,15 @@
         <br>
         تلفن : {{ object.phone }}
         <br>
-        تاریخ ثبت : {{ object.created_at }}
+        تاریخ ثبت : {{ object.created_at.date }}
         <br>
         تعداد کارگر : {{ object.workers_qty }}
         <br>
-        ثبت توسط : {{ object.user_creator }}
+        ثبت توسط : {{ object.user_creator.first_name }} {{ object.user_creator.last_name }}
         <br>
         محصولات تولیدی : {% for product in object.get_organ_product %} ,{{ product }}{% endfor %}
         <br>
-        محصولات پیشنهادی : {% for product in object.get_sug_product %} ,
-        {{ product }} {% endfor %}
+        محصولات پیشنهادی : {% for product in object.get_sug_product %} ,{{ product }} {% endfor %}
     </div>
     <div class="text-center">
         <h2>اطلاعات مخاطب</h2>
