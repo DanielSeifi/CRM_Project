@@ -12,7 +12,7 @@
     <div>
         <a href="{% url 'Organization:OrgansList' %}">بازگشت</a>
         <a href="{% url 'Quote:CreateQuote' %}">پیش فاکتور</a>
-        <a href="#">ویرایش</a>
+        <a href="{% url 'Organization:OrganUpdate' object.pk %}">ویرایش</a>
     </div>
     <div class="card-body">
         استان : {{ object.state }}

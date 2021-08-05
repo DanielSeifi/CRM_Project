@@ -5,7 +5,7 @@ from django.urls import reverse_lazy
 from . import models, forms
 
 # Create your views here.
-from django.views.generic import CreateView, ListView, DetailView
+from django.views.generic import CreateView, ListView, DetailView, UpdateView
 
 
 class create_organ(LoginRequiredMixin, CreateView):
@@ -37,6 +37,19 @@ class organ_detail(LoginRequiredMixin, DetailView):
     def get_queryset(self):
         organization = models.Organization.objects.filter(pk=self.kwargs['pk'], user_creator=self.request.user)
         return organization
+
+
+class organ_update(LoginRequiredMixin, UpdateView):
+    model = models.Organization
+    template_name = 'EditOrgan.html'
+    form_class = forms.OrganForm
+
+    def get_queryset(self):
+        organization = models.Organization.objects.filter(pk=self.kwargs['pk'], user_creator=self.request.user)
+        return organization
+
+    def get_success_url(self):
+        return reverse_lazy('Organization:OrganDetail', kwargs={'pk': self.object.pk})
 
 
 class create_follow_up(LoginRequiredMixin, CreateView):

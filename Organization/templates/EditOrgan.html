@@ -1,0 +1,51 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+{% block title %}
+    Update Organization
+{% endblock %}
+
+{% block content %}
+    <div class="text-center">
+        <h2>ویرایش {{ form.name.value }}</h2>
+    </div>
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="state">استان</label>
+            {% render_field form.state class+="form-control" type="select" %}
+        </div>
+        <div class="form-group">
+            <label for="name">نام سازمان</label>
+            {% render_field form.name class+="form-control" type="text" %}
+        </div>
+        <div class="form-group">
+            <label for="phone">تلفن</label>
+            {% render_field form.phone class+="form-control" type="text" %}
+        </div>
+        <div class="form-group">
+            <label for="workers_qty">تعداد کارگران</label>
+            {% render_field form.workers_qty class+="form-control" type="number" min="0" %}
+        </div>
+        <div class="form-group">
+            <label for="organ_product" class="form-label">محصولات تولیدی</label>
+            {% render_field form.organ_product class+="form-control" type="select" %}
+        </div>
+        <div class="form-group">
+            <label for="full_name_owner">نام و نام خانوادگی مخاطب</label>
+            {% render_field form.full_name_owner class+="form-control" type="text" %}
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="phone_owner">تلفن مخاطب</label>
+                {% render_field form.phone_owner class+="form-control" type="text" %}
+            </div>
+            <div class="form-group col-md-6">
+                <label for="email_owner">ایمیل مخاطب</label>
+                {% render_field form.email_owner class+="form-control" type="email" %}
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">ذخیره</button>
+    </form>
+{% endblock %}
