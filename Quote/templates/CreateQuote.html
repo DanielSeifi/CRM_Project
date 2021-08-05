@@ -9,9 +9,9 @@
     <form id="form-container" method="POST">
         {% csrf_token %}
         {{ formset.management_form }}
-        <div class="col-md-6 col-12">
+        <div class="col-md-8 col-12">
             <div class="form-group">
-                <label for="organization">Organization</label>
+                <label for="organization">سازمان</label>
                 <select class="choices form-select"
                         name="organization" id="organization">
                     <optgroup label="Organization">
@@ -22,35 +22,34 @@
                 </select>
             </div>
         </div>
-        <label for="organization">Items</label>
+        <label for="organization">محصولات</label>
         <br>
         {% for form in formset %}
             <div class="formset">
-                <div class="col-md-6 col-12">
+                <div class="col-md-11 col-12">
                     <div class="form-group">
-                        <div class="col-md-12 mb-3">
-                            <div class="input-group mb-3">
+                        <div class="col-md-12 mb-10">
+                            <div class="input-group mb-10">
                                 <label class="input-group-text"
-                                       for="id_form-0-product">Product</label>
+                                       for="id_form-0-product">محصول</label>
                                 {% render_field form.product class+="form-select" %}
                                 <input type="number" class="form-control" name="form-0-price"
                                        min="0" id="id_form-0-price"
-                                       placeholder="Price" required>
+                                       placeholder="قیمت" required>
                                 <input type="number" class="form-control" name="form-0-quantity"
                                        min="1" id="id_form-0-quantity"
-                                       placeholder="Quantity" required>
+                                       placeholder="تعداد" required>
                                 <input type="number" class="form-control" name="form-0-discount"
                                        min="0" max="100" id="id_form-0-discount"
-                                       placeholder="Discount" required>
+                                       placeholder="درصد تخفیف" required>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         {% endfor %}
-        <button id="add-form" type="button" class="btn btn-secondary me-1 mb-1">Add Another Item
-        </button>
-        <button type="submit" class="btn btn-primary me-1 mb-1">Create Quote</button>
+        <button id="add-form" type="button" class="btn btn-secondary me-1 mb-1">محصول جدید</button>
+        <button type="submit" class="btn btn-primary me-1 mb-1">ذخیره</button>
     </form>
 {% endblock %}
 
