@@ -4,7 +4,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 
 # Create your views here.
 from django.urls import reverse_lazy
-from django.views.generic import CreateView
+from django.views.generic import CreateView, ListView
 
 from Organization.models import Organization
 from .forms import QuoteItemCreateFormSet
@@ -30,3 +30,8 @@ class craete_quote(LoginRequiredMixin, CreateView):
                 form.save()
             messages.success(self.request, "ثبت شد")
             return redirect(reverse_lazy("Organization:OrgansList"))
+
+class quote_list(LoginRequiredMixin, ListView):
+    model = Quote
+    template_name = 'QuoteList.html'
+    paginate_by = 4

@@ -2,40 +2,33 @@
 {% load static %}
 
 {% block title %}
-    Product List
+    Quote List
 {% endblock %}
 
 {% block content %}
     <div class="text-center">
-        <h2>لیست محصولات</h2>
+        <h2>لیست پیش فاکتور ها</h2>
     </div>
     <div class='text-white mt-lg-5' style="margin-left: 15%; margin-right: 15%;">
         <table class='table table-dark'>
             <thead>
             <tr>
                 <th>#</th>
-                <th>نام محصول</th>
-                <th>قیمت</th>
-                <th>مشمول مالیات</th>
-                <th>دانلود کاتولوگ</th>
+                <th>نام مشتری</th>
+                <th>دستگاه ها</th>
+                <th>فایل خروجی</th>
+                <th>ارسال ایمیل به مخاطب</th>
             </tr>
             </thead>
 
             <tbody>
-                {% for product in object_list %}
+                {% for quote in object_list %}
                     <tr>
                         <th>{{forloop.counter}}</th>
                         <th>
-                            <a href="#" style='text-decoration: none; color:white;'>{{product.product_name}}</a>
+                            <a href="#" style='text-decoration: none; color:white;'>{{quote.organ.name}}</a>
                         </th>
-                        <th>{{product.price}}</th>
-                        <th>
-                            {% if product.is_tax %}
-                                بله
-                            {% else %}
-                                خیر
-                            {% endif %}
-                        </th>
+                        <th>{{quote.quoteitem_set.all.name}}</th>
                         <th>
                             {% if product.pdf_file %}
                                 <button class='btn btn-success'>
