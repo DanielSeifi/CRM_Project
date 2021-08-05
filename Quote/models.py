@@ -40,8 +40,8 @@ class Quote(models.Model):
             total_base_price=F('quantity') * F('price')).annotate(
             total_price=F('total_base_price') - (F('discount') * F('total_base_price') / 100)).annotate(
             total_tax=Case(
-                When(product__tax_status=True, then=(F('total_price') * tax / 100)),
-                When(product__tax_status=False, then=0),
+                When(product__is_tax=True, then=(F('total_price') * tax / 100)),
+                When(product__is_tax=False, then=0),
                 output_field=models.PositiveIntegerField()
             )
         ).aggregate(Sum('total_tax'))['total_tax__sum']
@@ -51,8 +51,8 @@ class Quote(models.Model):
             total_base_price=F('quantity') * F('price')).annotate(
             total_price=F('total_base_price') - (F('discount') * F('total_base_price') / 100)).annotate(
             total_price=Case(
-                When(product__tax_status=True, then=F('total_price') + (F('total_price') * tax / 100)),
-                When(product__tax_status=False, then=F('total_price')),
+                When(product__is_tax=True, then=F('total_price') + (F('total_price') * tax / 100)),
+                When(product__is_tax=False, then=F('total_price')),
                 output_field=models.PositiveIntegerField()
             )
         ).aggregate(Sum('total_price'))['total_price__sum']

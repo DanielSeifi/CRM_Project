@@ -148,7 +148,7 @@ LOGIN_REDIRECT_URL = 'homepage'  # new
 LOGOUT_REDIRECT_URL = 'homepage'  # new
 LOGIN_URL = 'login'
 
-EMAIL_BACKEND = 'djcelery_email.backends.CeleryEmailBackend'
+CELERY_EMAIL_BACKEND = 'djcelery_email.backends.CeleryEmailBackend'
 
 CELERY_EMAIL_TASK_CONFIG = {
     'name': 'djcelery_email_send',

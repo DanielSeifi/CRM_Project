@@ -28,15 +28,18 @@
                         <th>
                             <a href="#" style='text-decoration: none; color:white;'>{{quote.organ.name}}</a>
                         </th>
-                        <th>{{quote.quoteitem_set.all.name}}</th>
+                        <th>{% for item in quote.quoteitem_set.all %}{{ item.product.product_name }},{% endfor %}</th>
                         <th>
-                            {% if product.pdf_file %}
+                            {% if quote.pdf_file %}
                                 <button class='btn btn-success'>
-                                    <a href="{{product.pdf_file.url}}" style='text-decoration: none; color: white;'>دانلود</a>
+                                    <a href="{{quote.pdf_file.url}}" style='text-decoration: none; color: white;'>دانلود</a>
                                 </button>
                             {% else %}
                                 -
                             {% endif %}
+                        </th>
+                        <th>
+                            <a href="{% url 'Quote:SendEmail' quote.pk %}" style='text-decoration: none; color:white;'>ارسال ایمیل</a>
                         </th>
                     </tr>
                 {% endfor %}
