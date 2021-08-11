@@ -10,9 +10,9 @@
         <h2>{{ object.name }}</h2>
     </div>
     <div>
-        <a href="{% url 'Organization:OrgansList' %}">بازگشت</a>
-        <a href="{% url 'Quote:CreateQuote' %}">پیش فاکتور</a>
-        <a href="{% url 'Organization:OrganUpdate' object.pk %}">ویرایش</a>
+        <a href="{% url 'Organization:OrgansList' %}" class="btn btn-primary">بازگشت</a>
+        <a href="{% url 'Quote:CreateQuote' %}" class="btn btn-primary">پیش فاکتور</a>
+        <a href="{% url 'Organization:OrganUpdate' object.pk %}" class="btn btn-primary">ویرایش</a>
     </div>
     <div class="card-body">
         استان : {{ object.state }}
