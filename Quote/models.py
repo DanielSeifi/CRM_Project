@@ -58,7 +58,6 @@ class Quote(models.Model):
         ).aggregate(Sum('total_price'))['total_price__sum']
 
 
-
 class QuoteItem(models.Model):
     quote = models.ForeignKey(Quote, on_delete=models.CASCADE, verbose_name=_('پیش فاکتور'))
     product = models.ForeignKey(Product, on_delete=models.PROTECT, verbose_name=_('محصول'))
@@ -75,3 +74,17 @@ class QuoteItem(models.Model):
 
     def get_total_price(self):
         return self.quantity * self.price
+
+
+class EmailHistory(models.Model):
+    quote = models.ForeignKey(Quote, on_delete=models.CASCADE, verbose_name=_('پیش فاکتور'))
+    description = models.TextField(verbose_name=_('متن ایمیل'))
+    status = models.BooleanField(verbose_name=_('وضعیت ارسال'))
+    email = models.EmailField(verbose_name=_("ایمیل مخاطب"), blank=True, )
+    user_creator = models.ForeignKey(get_user_model(), on_delete=models.PROTECT,
+                                     verbose_name=_('کاربر ثبت کننده'))
+    created_at = jdate.jDateTimeField(auto_now_add=True, verbose_name=_('تاریخ ثبت'))
+
+    class Meta:
+        verbose_name = _('تاریخچه ایمیل')
+        verbose_name_plural = _('تاریخچه ایمیل ها')

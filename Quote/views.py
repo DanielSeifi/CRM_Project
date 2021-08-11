@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, get_object_or_404, redirect
@@ -11,7 +12,7 @@ from django.views.generic import CreateView, ListView
 
 from Organization.models import Organization
 from .forms import QuoteItemCreateFormSet
-from .models import QuoteItem, Quote
+from .models import QuoteItem, Quote, EmailHistory
 
 
 class craete_quote(LoginRequiredMixin, CreateView):
@@ -32,7 +33,7 @@ class craete_quote(LoginRequiredMixin, CreateView):
                 form.instance.quote = quote
                 form.save()
             messages.success(self.request, "ثبت شد")
-            return redirect(reverse_lazy("Organization:OrgansList"))
+            return redirect(reverse_lazy("Quote:QuoteList"))
 
 
 class quote_list(LoginRequiredMixin, ListView):
@@ -44,14 +45,22 @@ class quote_list(LoginRequiredMixin, ListView):
 @require_http_methods(["GET"])
 @login_required
 def send_email(request, pk):
+
     quote = get_object_or_404(Quote, pk=pk, user_creator=request.user)
     text = render_to_string('quotetext.txt', {'object': quote})
     email = quote.organ.email_owner
     sender = request.user.email
     emails = (
-        ('Hey Man', text, sender, [email,]),
+        ('Hey Man', text, sender, [email, ]),
     )
-    results = mail.send_mass_mail(emails)
-    print(results)
-    messages.success(request, 'ایمیل با موفقیت ارسال شد.')
-    return redirect(reverse_lazy('Quote:QuoteList'))
+    try:
+        results = mail.send_mass_mail(emails)
+        p = EmailHistory(quote=quote,description=text,status=results,email=email,user_creator=request.user)
+        p.save()
+        messages.success(request, 'ایمیل با موفقیت ارسال شد.')
+        return redirect(reverse_lazy('Quote:QuoteList'))
+    except:
+        p = EmailHistory(quote=quote, description=text, status=0, email=email, user_creator=request.user)
+        p.save()
+        messages.error(request, 'ارسال ایمیل انجام نشد.')
+        return redirect(reverse_lazy('Quote:QuoteList'))

@@ -1,6 +1,6 @@
 
 from django.contrib import admin
-from .models import Quote, QuoteItem
+from .models import Quote, QuoteItem, EmailHistory
 
 
 @admin.register(Quote)
@@ -55,4 +55,26 @@ class QuoteItemAdmin(admin.ModelAdmin):
         'price',
         'quantity',
         'discount',
+    )
+
+@admin.register(EmailHistory)
+class EmailHistoryAdmin(admin.ModelAdmin):
+    list_display = (
+        'pk',
+        'quote',
+        'status',
+        'email',
+        'user_creator',
+        'created_at',
+    )
+
+    list_filter = (
+        'quote',
+        'status',
+        'email',
+        'user_creator',
+    )
+
+    search_fields = (
+        'quote',
     )

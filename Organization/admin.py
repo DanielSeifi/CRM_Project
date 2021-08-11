@@ -34,7 +34,15 @@ class OrganizationAdmin(admin.ModelAdmin):
         'created_at',
         'user_creator',
     ]
-
+    list_editable = [
+        'state',
+        'phone',
+        'workers_qty',
+        'full_name_owner',
+        'phone_owner',
+        'email_owner',
+        'user_creator',
+    ]
     list_filter = ['state', 'organ_product', 'user_creator', ]
 
     list_display_links = ['pk', 'name', ]
@@ -44,18 +52,18 @@ class OrganizationAdmin(admin.ModelAdmin):
     search_fields = ['name__icontains', ]
 
 
-    @admin.register(models.FollowUp)
-    class FollowUpAdmin(admin.ModelAdmin):
-        list_display = (
-            'pk',
-            'user_creator',
-            'organization',
-            'created_at',
-        )
-        search_fields = (
-            'organization__icontains',
-        )
-        list_filter = (
-            'user_creator',
-            'created_at',
-        )
+@admin.register(models.FollowUp)
+class FollowUpAdmin(admin.ModelAdmin):
+    list_display = (
+        'pk',
+        'user_creator',
+        'organization',
+        'created_at',
+    )
+    search_fields = (
+        'organization__icontains',
+    )
+    list_filter = (
+        'user_creator',
+        'created_at',
+    )
