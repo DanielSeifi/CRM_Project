@@ -6,8 +6,11 @@ from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.decorators.csrf import csrf_exempt
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.viewsets import ModelViewSet
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
-from . import models, forms
+from . import models, forms, serializers
 
 # Create your views here.
 from django.views.generic import CreateView, ListView, DetailView, UpdateView, FormView
@@ -87,3 +90,17 @@ class create_follow_up(LoginRequiredMixin, CreateView):
             'organization': models.Organization.objects.get(pk=self.kwargs['pk']),
         }
         return context
+
+
+class OrganizationViewSetAPI(ModelViewSet):
+    serializer_class = serializers.OrganizationSerializer
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [JWTAuthentication]
+    queryset = models.Organization.objects.all()
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        return qs.filter(creator=self.request.user)
+
+    def perform_create(self, serializer):
+        serializer.save(creator=self.request.user)
